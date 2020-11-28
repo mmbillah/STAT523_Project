@@ -1,0 +1,101 @@
+---
+title: "STAT 523 Project Proposal"
+author: "Md Muhtasim Billah"
+date: "2/12/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# 1. Summary
+
+Receptor dependent endocytosis is the most common endocytic pathway through which nanoparticles such as viruses or drug enter the epithelial or endothelial cells in human body. For most cases, this process is aided by a biomolecule called clathrin and this pathway is called the Clathrin Mediated Endocytosis (CME). But there are also enocytic pathways that don't utilize clathrin which are called the Clathrin Independent Endocytosis (CIE). It turns out that these two pathways (CME and CIE) are strictly dependent on many biophysical and biochemical parameters. Among these parameters, two very important ones are the receptor length, $L_{rec}$ and the reaction cutoff distance, $d_c$. As a part of my PhD research in the Mechanical Engineering department at WSU, I have performed Monte Carlo Simulations on a stochastic model of this biophysical system to study the effect of clathrin as well as these parameters. From the simulations, we try to determine the effects of these parameters on the whole endocytosis process by looking at the number of bonds (formed between the ligands on the particle surface and the receptors on the cell surface) and as well the equilibrium profile of the cell membrane (to visualize particle wrapping). While, those visualizations are enough to come to a conclusion, adopting a more quantitative measure to determine their significant effects can be more helpful. Thus, based on the topics discussed in this class such as the completely randomized design (CRD), analysis of variance (ANOVA) and comparing between the factors of an experiment, a more deterministic conclusion can be made based upon these statistical methods. 
+
+# 2. Dataset
+
+### I) CME vs CIE
+
+Clathrin plays a significant role for most of the receptor mediated endocytosis ocurring in nature. It's importance has been proven to be unquestionable in numerous experimental and computational research. Our stochastic model allows us to capture this clathrin-inclusion effect by comparing between simulations that have clathrin with the ones that do not. Under the same computational setup, CME (Treatment 1) shows full internalization of particle where CIE (Treatment 2) only shows partial wrapping. This attribute can be determined by the maximum ratio of bonds formed during the simulation which is denoted by $Max \ R_{Bonds}$. Higher this value, higher the chance for a full particle internalization. Naturally, CME gives a higher value than CIE and this can also be verified statistically by comparing the mean $Max \ R_{Bonds}$ of CME and CIE. So, $Max \ R_{Bonds}$ is the response variable for this experiment and each simulation is an experimental unit. Three independent simulations were run for each case so, the number of replicates or the sample size for each treament is 3. The data are given in Table 1.
+
+\begin{table}
+\centering
+
+
+\begin{tabular}{|l|c|c|}
+\hline
+{\textbf{Nomenclature}}  &  {\textbf {Treatment 1}} & {\textbf {Treatment 2}}  \\
+\hline
+{\textbf{Factor 1}, $L_{rec}$}             & $9.3$ & $9.3$ \\
+{\textbf{Factor 2}, $d_c$}                 & $0.9$ & $0.9$ \\
+\hline
+{$Max \, R_{bonds}$}    & $0.759,0.741,0.759$ & $0.049,0.068,0.049$  \\
+\hline
+{\textbf{Treatment Means}}     & $\bar{x}_{1.}=0.753$ & $\bar{x}_{2.}=0.055$ \\
+\hline
+\end{tabular}
+
+\caption{Data for comparing CME with CIE}\label{thelabel}
+\end{table}
+
+
+### II) $L_{rec}$ vs $d_c$
+
+CIE is a merely recent discovery comapring to the CME and many questions remains unanswered till date. Along with experiments, computaional studies are being carried out to determine parameter effects for this procedure. Two very important parameters for these computational works are the receptor length, $L_{rec}$ and the reaction cutoff distance between the ligand and receptor, $d_c$. Depending on how this system is modeled, a very wide range of values for these two parameters have been used in literature which sometimes are not in line with real life scenarios. That is why these parameters are important to study. 
+
+For my research, I have performed simulations for CIE focusing on these two parameters which will be two factors of the experiment that we want to compare. The most reasonable values for them have been considered as the control group (Treatment 1). For Treatment 2, $d_c$ and for Treatment 3, $L_{rec}$ has different values from the cotrol group. For Treatment 4, both of these values are different from control group. The data for $Max \ R_{Bonds}$ found from the simultions are provided in Table 2.
+
+\begin{table}
+\begin{center}
+
+\begingroup
+\setlength{\tabcolsep}{6pt} % Default value: 6pt
+\renewcommand{\arraystretch}{1} % Default value: 1
+
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+{\textbf{Nomenclature}}  &  {\textbf {Treatment 1}}  & {\textbf {Treatment 2}} & {\textbf {Treatment 3}} & {\textbf {Treatment 4}}  \\
+\hline
+{\textbf{Factor 1}, $L_{rec}$}             & $9.3$ & $9.3$ & $0.3$ & $0.3$ \\
+{\textbf{Factor 2}, $d_c$}                 & $0.9$ & $5.9$ & $0.9$ & $5.9$ \\
+\hline
+{$Max \, R_{bonds}$}    & $0.049,0.068,0.049$ & $0.494,0.488,0.531$  & $0.315,0.401,0.500$ & $0.969,0.969,0.981$ \\
+\hline
+{\textbf{Treatment Means}}       & $\bar{x}_{1.}=0.055$ & $\bar{x}_{2.}=0.504$ & $\bar{x}_{3.}=0.405$ & $\bar{x}_{4.}=0.973$ \\
+\hline
+\end{tabular}
+
+\endgroup
+
+\end{center}
+\caption{Data two comparing factors, $L_{rec}$ and $d_c$}
+\label{table_gen}
+\end{table}
+
+# 3. Objectives
+
+### I) Comparing the effect of clathrin for endocytosis.
+
+Whether clathrin plays a significant role during endocytosis or not can be determined by comparing the two sample means of Treatment 1 (CME) and Treatment 2 (CIE) from Table 1.
+
+
+### II) Comparing the effect of two factors $L_{rec}$ and $d_c$ for CIE.
+
+Between the two factors- receptor length, $L_{rec}$ and reaction cutoff distance, $d_c$- which one has more influence on CIE, can be determined by an one-way ANOVA analysis from the data provided in Table 2.
+
+
+# 4. Statistical Methods
+
+The following statiscal methods will be used to analyze the data.
+
+I) Comparison between two means.
+II) One-way ANOVA.
+III) Post-hoc analysis.
+IV) Contrasts between two factors of experiment.
+
+
+# 5. Future Works
+
+The project proposal is based on the topics that have been covered so far in the class. With the advancement of the semester, given that newer topics have been intoduced in class, more statistical analysis can be done on top of the proposed current course of action.
